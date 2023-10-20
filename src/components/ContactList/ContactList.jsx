@@ -19,17 +19,16 @@ const ContactList = () => {
   const contactsList = filterContacts();
 
   return (
+
     <ul className={css.list}>
       {contactsList.map(contact => {
         const { id, name, number } = contact;
         return (
           <li className={css.item} key={id}>
-            <p>
-              {name}: {number}
-            </p>
-
-            <button type="button" onClick={() => dispatch(deleteContact(id))}>
-              Delete
+            <span className={css.name}>{name} :</span>
+            <span className={css.nameNumber}>{number}</span>
+            <button className={css.delete_btn} type="button" onClick={() => dispatch(deleteContact(id))}>
+              x
             </button>
           </li>
         );

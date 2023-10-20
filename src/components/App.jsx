@@ -11,18 +11,20 @@ import { addContact } from 'redux/contacts/contactsSlice';
 export const App = () => {
   const contacts = useSelector(getContacts);
   const dispatch = useDispatch();
-  const [timer, setTimer] = useState(0);
   const [showTemplate, setShowTemplate] = useState(contacts.length === 0);
+  const [timer, setTimer] = useState(3);
+
+  const loadContacts = async () => {
+    await new Promise(resolve => setTimeout(resolve, 3000));
+    setShowTemplate(false);
+    contactsTemplate.forEach(contact => {
+      dispatch(addContact(contact));
+    });
+  };
 
   useEffect(() => {
     if (showTemplate) {
-      setTimer(3);
-      setTimeout(() => {
-        setShowTemplate(false);
-        contactsTemplate.forEach(contact => {
-          dispatch(addContact(contact));
-        });
-      }, 3000);
+      loadContacts();
     }
   }, [dispatch, showTemplate]);
 
